@@ -59,7 +59,6 @@ My-RPC-Framework 是一款基于 Nacos 实现的 RPC 框架。网络传输实现
 ### 定义调用接口
 
 ```java
-package top.guoziyang.rpc.api;
 
 public interface HelloService {
     String hello(String name);
@@ -69,9 +68,6 @@ public interface HelloService {
 ### 在服务提供侧实现该接口
 
 ```java
-package top.guoziyang.test;
-
-import top.guoziyang.rpc.api.HelloService;
 
 @Service
 public class HelloServiceImpl implements HelloService {
@@ -85,11 +81,6 @@ public class HelloServiceImpl implements HelloService {
 ### 编写服务提供者
 
 ```java
-package top.guoziyang.test;
-
-import top.guoziyang.rpc.api.HelloService;
-import top.guoziyang.rpc.serializer.CommonSerializer;
-import top.guoziyang.rpc.transport.netty.server.NettyServer;
 
 @ServiceScan
 public class NettyTestServer {
@@ -105,13 +96,6 @@ public class NettyTestServer {
 ### 在服务消费侧远程调用
 
 ```java
-package top.guoziyang.test;
-
-import top.guoziyang.rpc.api.HelloService;
-import top.guoziyang.rpc.serializer.CommonSerializer;
-import top.guoziyang.rpc.transport.RpcClient;
-import top.guoziyang.rpc.transport.RpcClientProxy;
-import top.guoziyang.rpc.transport.netty.client.NettyClient;
 
 public class NettyTestClient {
 
@@ -119,7 +103,7 @@ public class NettyTestClient {
         RpcClient client = new NettyClient(CommonSerializer.KRYO_SERIALIZER, new RoundRobinLoadBalancer());
         RpcClientProxy rpcClientProxy = new RpcClientProxy(client);
         HelloService helloService = rpcClientProxy.getProxy(HelloService.class);
-        String res = helloService.hello("ziyang");
+        String res = helloService.hello("hi");
         System.out.println(res);
     }
 }
